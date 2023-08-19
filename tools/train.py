@@ -30,14 +30,14 @@ def main():
     train_start_time = time.time()
     curr_time = time.strftime('%m-%d-%H-%M', time.localtime())
     args = parse_args()
-    with open(args.config) as cfg_file:
+    with open(args.config) as cfg_file: #打开一个yaml文件
         cfg = CN.load_cfg(cfg_file)
         print('Successfully loading the config file....')
         opts = [
             'ModelConfig.model_name', args.modelName, 
             'ModelConfig.modality', args.modality,
             ]
-        cfg.merge_from_list(opts)
+        cfg.merge_from_list(opts) #合并创建的这个列表
         print(cfg)
     device = torch.device('cuda:0')
     ModelConfig = cfg.ModelConfig
@@ -102,6 +102,6 @@ def main():
     train_end_time = time.time()
     print("total training time: %.2f min" %((train_end_time - train_start_time)/60))
 
-if __name__ == "__main__":
+if __name__ == "__main__": # 判断当前脚本是否被直接运行，还是被作为模块导入到其他脚本中。这个条件语句通常用于将一些特定的代码块限定在直接运行脚本时执行，而在被导入为模块时不执行。
     main()
     
